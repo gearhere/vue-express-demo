@@ -10,6 +10,8 @@
       <input type="text" v-model="keywords" placeholder="input a type to search">
       <button type="button" @click="selectType">search</button>
     </form>
+    <br>
+    <button type="button" @click="jsonServer">mock</button>
   </div>
 </template>
 
@@ -29,7 +31,7 @@ export default {
     }
   },
   methods:{
-    addType(){ //
+    addType () {
       let type = this.type;
       let num = this.num;
       axios.post('/api/user/addType',{
@@ -40,10 +42,11 @@ export default {
         console.log(err)
       })
     },
-    selectType(){
-      let type = this.keywords;
-      axios.post('api/user/selectType',{
-        type
+    selectType () {
+      // use the keywords submitted from the form
+      let queryType = this.keywords;
+      axios.post('/api/user/selectType',{
+        queryType
       }).then(res=>{
         let data = res.data[0];
         this.type = data.type;
@@ -51,6 +54,11 @@ export default {
         alert('type: '+ data.type + '\n' + 'num: '+ data.num);
       }).catch(err=>{
         console.log(err)
+      })
+    },
+    jsonServer () {
+      axios.get('http://localhost:3000/posts/1').then(res => {
+        alert(res.data["title"])
       })
     }
   }

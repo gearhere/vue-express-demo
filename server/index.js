@@ -9,13 +9,14 @@ let server = http.createServer(app);
 
 app.use(badyParser.json());
 app.use(badyParser.urlencoded({
-    extended: false
+    extended: true
 }));
 
 // back-end api routes
+// see vue.config.js for /api
 app.use('/api/user', userApi);
 
 // start listening
 server.listen(8888, () => {
-    console.log(' success!! port:8888')
+    console.log(' success! port:8888')
 })
